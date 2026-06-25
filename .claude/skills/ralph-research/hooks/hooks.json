@@ -1,0 +1,15 @@
+{
+  "description": "ralph-research stop hook — blocks exit until AC satisfied (RESEARCH COMPLETE promise) or max iterations reached",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_SKILL_ROOT:-$HOME/.claude/skills/ralph-research}/hooks/ralph-stop.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
