@@ -1,15 +1,15 @@
 # liner-research
 
-Liner(liner.com) 기반 리서치 자동화 스킬. Claude-driven **Wonder → Refine → Discussing** Socratic 루프로 연구 목표를 수렴하고, Liner 검색 API를 호출해 Markdown 브리핑 + Mermaid 마인드맵을 생성한다.
+Research automation skill powered by Liner (liner.com). Converges a research goal through a Claude-driven **Wonder → Refine → Discussing** Socratic loop, then calls the Liner search API to produce a Markdown brief and Mermaid mind-map.
 
-## 트리거
+## Triggers
 
 ```
 /liner-research [seed]
-"research X", "조사해줘", "Liner로 리서치", "deep research on …"
+"research X", "deep research on …"
 ```
 
-## 파이프라인
+## Pipeline
 
 ```
 [seed] → Wonder → Refine → Discussing → goal.json
@@ -25,16 +25,16 @@ Liner(liner.com) 기반 리서치 자동화 스킬. Claude-driven **Wonder → R
                                          .liner.json
 ```
 
-## 환경 설정
+## Setup
 
-`.env` (프로젝트 루트):
+`.env` (project root):
 
 ```
 LINER_API_KEY=sk_live_...
 ANTHROPIC_API_KEY=...
 ```
 
-virtualenv 활성화:
+Activate virtualenv:
 
 ```bash
 source /Users/sanghee/dev/research/.venv/bin/activate
@@ -42,18 +42,18 @@ source /Users/sanghee/dev/research/.venv/bin/activate
 
 ## CLI
 
-모든 명령은 `scripts/` 디렉토리에서 실행:
+All commands run from the `scripts/` directory:
 
 ```bash
-# Phase 0 — Wonder (해석 후보 생성)
+# Phase 0 — Wonder (generate interpretation candidates)
 python research.py wonder --seed "your topic"
 
-# Phase 2 — Restate (goal + rubric 수렴)
+# Phase 2 — Restate (converge goal + rubric)
 python research.py restate --seed "your topic" \
   --user-context '["reply 1", "reply 2"]' \
   --candidates '[{"label":"...","claim":"..."}]'
 
-# Phase 3 — Pipeline (Liner 검색 + 요약 + 저장)
+# Phase 3 — Pipeline (Liner search + summarize + save)
 python research.py run-pipeline --goal-json /tmp/goal.json --depth 5
 
 # Visualize (Atlas HTML)
@@ -61,7 +61,7 @@ python research.py visualize --query "your topic"
 python research.py visualize --goal-json /tmp/goal.json
 ```
 
-## 파일 구조
+## File Structure
 
 ```
 .claude/skills/liner-research/
@@ -78,6 +78,6 @@ python research.py visualize --goal-json /tmp/goal.json
         └── harness.py
 ```
 
-## 연관 스킬
+## Related Skills
 
-- `/liner-visualize` — 수렴된 goal JSON 또는 자유 텍스트 쿼리로 Liner Atlas HTML 생성
+- `/liner-visualize` — generates an interactive Liner Atlas HTML from a converged goal JSON or a free-text query
